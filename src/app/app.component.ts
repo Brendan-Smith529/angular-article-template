@@ -45,12 +45,15 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 		};
 
 		this.observer = new IntersectionObserver((entries) => {
-      this.ngZone.run(() =>
-        this.currentSection = entries
-          .find(entry => entry.isIntersecting)!
+      this.ngZone.run(() => {
+        const intersectingEntry = entries.find(entry => entry.isIntersecting);
+
+        if (!intersectingEntry) return;
+
+        this.currentSection = intersectingEntry
           .target
           .getAttribute("aria-labelledby") as string
-      )
+      })
 		}, observerOptions);
 
 		for (const section of this.sections)

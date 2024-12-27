@@ -3,8 +3,11 @@ import { CommonModule } from '@angular/common';
 import { ThemeComponent } from './theme/theme.component';
 
 @NgModule({
-  declarations: [ThemeComponent],
-  imports: [CommonModule],
+  declarations: [],
+  imports: [
+    CommonModule,
+    ThemeComponent
+  ],
   exports: [ThemeComponent],
 })
 export class SharedModule {}
