@@ -1,8 +1,24 @@
-<div class="-z-1">
-  <button class="" type="button" aria-haspopup="menu">
+<div class="fixed top-5 right-30 text-xl h-screen transition-transform -translate-x-full sm:translate-x-0" #menuContainer>
+  <button
+    (click)="toggleDisplay()"
+    class=""
+    type="button"
+    aria-haspopup="menu"
+  >
     <span>
-      <span class=""></span>
+      <span [ngClass]="getTheme()"></span>
       Theme
     </span>
   </button>
+
+  <ul *ngIf="showThemeOpts">
+    <li *ngFor="let theme of themes">
+      <button
+        (click)="setTheme(theme.value); toggleDisplay()"
+        type="button"
+      >
+        {{ theme.label }}
+      </button>
+    </li>
+  </ul>
 </div>
