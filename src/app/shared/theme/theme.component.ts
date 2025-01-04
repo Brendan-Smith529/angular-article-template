@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  ViewChild
+} from '@angular/core';
+import { ThemeService } from './theme.service';
 
 @Component({
   selector: 'app-theme',
@@ -11,7 +17,7 @@ import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 })
 export class ThemeComponent {
   @ViewChild('menuContainer') menuContainer!: ElementRef;
-  private type: string;
+
   showThemeOpts: boolean = false;
 
   themes = [
@@ -20,28 +26,18 @@ export class ThemeComponent {
     { value: 'dark', label: 'Dark' },
   ];
 
-  constructor() {
-    const themeType = localStorage.getItem('theme')
-      ? localStorage.getItem('theme') as string
-      : ''
-
-    this.type = themeType !== '' ? themeType : 'os-default';
-
-    if (themeType !== this.type)
-      localStorage.setItem('theme', this.type);
-  }
+  constructor(private themeService: ThemeService) {}
 
   toggleDisplay(): void {
     this.showThemeOpts = !this.showThemeOpts;
   }
 
   getTheme(): string {
-    return 'icon-' + this.type;
+    return this.themeService.getTheme();
   }
 
   setTheme(type: string): void {
-    localStorage.setItem('theme', type);
-    this.type = type;
+    this.themeService.setTheme(type);
   }
 
   @HostListener('document:click', ['$event'])

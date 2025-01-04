@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  HostBinding,
   NgZone,
   OnDestroy,
   QueryList,
@@ -9,6 +10,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from './shared/shared.module';
+import { ThemeService } from './shared/theme/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +25,18 @@ import { SharedModule } from './shared/shared.module';
 export class AppComponent implements AfterViewInit, OnDestroy {
   title = 'personal-site';
 
+  // Theme changing
+  constructor(private ngZone: NgZone, private themeService: ThemeService) {}
+
+  @HostBinding('class.dark') get mode() {
+    return this.themeService.getTheme() === 'dark';
+  }
+
+  // Section manipulation
+  currentSection: string = ''
+  @ViewChildren('section') sections!: QueryList<ElementRef>
+  private observer!: IntersectionObserver
+
   scrollToSection(e: MouseEvent, id: string): void {
     const section = document.getElementById(id);
     e.preventDefault();
@@ -30,12 +44,6 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     if (section)
       section.scrollIntoView({ behavior: 'smooth' });
   }
-
-  currentSection: string = ''
-  @ViewChildren('section') sections!: QueryList<ElementRef>
-  private observer!: IntersectionObserver
-
-  constructor(private ngZone: NgZone) {}
 
   ngAfterViewInit(): void {
     const observerOptions = {
