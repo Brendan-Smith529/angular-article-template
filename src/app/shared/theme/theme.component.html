@@ -1,24 +1,35 @@
 <div class="fixed top-5 right-30 text-xl h-screen transition-transform -translate-x-full sm:translate-x-0" #menuContainer>
   <button
     (click)="toggleDisplay()"
-    class=""
+    class="hover:bg-gray-300 dark:hover:bg-gray-600 rounded border border-blue-500 border-opacity-0"
+    [ngClass]="{'border-opacity-100': showThemeOpts}"
     type="button"
     aria-haspopup="menu"
   >
-    <span>
+    <span class="mx-2">
       <span [ngClass]="getTheme()"></span>
       Theme
     </span>
   </button>
 
-  <ul *ngIf="showThemeOpts">
-    <li *ngFor="let theme of themes">
-      <button
-        (click)="setTheme(theme.value); toggleDisplay()"
-        type="button"
+  <div
+    class="block border rounded bg-gray-50 border-gray-200 dark:bg-zinc-800 dark:border-gray-500 shadow-md dark:shadow-white dark:shadow-sm"
+    *ngIf="showThemeOpts"
+  >
+    <ul class="my-2 mx-2">
+      <li
+        class="flex items-center h-8"
+        *ngFor="let theme of themes"
       >
-        {{ theme.label }}
-      </button>
-    </li>
-  </ul>
+        <button
+          class="w-full h-full text-left rounded hover:bg-gray-300 dark:hover:bg-gray-600"
+          [ngClass]="{'bg-white border border-gray-300 shadow dark:bg-zinc-900 dark:shadow-sm dark:shadow-gray-700': theme.value === getThemeType()}"
+          (click)="setTheme(theme.value); toggleDisplay()"
+          type="button"
+        >
+          <span class="mx-4">{{ theme.label }}</span>
+        </button>
+      </li>
+    </ul>
+  </div>
 </div>

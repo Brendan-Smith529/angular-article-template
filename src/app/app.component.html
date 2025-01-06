@@ -9,7 +9,7 @@
       </header>
 
       <section class="mb-7" aria-labelledby="overview" #section>
-        <h2 id="overview" class="mb-4 text-left text-4xl font-medium}">
+        <h2 id="overview" class="mb-4 text-left text-4xl font-medium">
           <a
             href="#overview"
             (click)="scrollToSection($event, 'overview')"
@@ -351,7 +351,7 @@
   <div id="sidebar-container">
     <aside
       id="default-sidebar"
-      class="fixed text-2xl top-36 right-30 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+      class="fixed text-2xl top-48 right-30 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
       aria-label="Sidebar"
     >
       <nav>
@@ -362,56 +362,62 @@
             </header>
 
             <ul class="space-y-5 border-l border-gray-300">
-              <li [ngClass]="{'bg-blue-100 dark:bg-blue-300 font-semibold': currentSection === 'overview'}">
+              <li [ngClass]="{'bg-blue-300 dark:bg-blue-400 bg-opacity-40 dark:bg-opacity-20 font-semibold': currentSection === 'overview'}">
                 <a
                   href="#overview"
                   (click)="scrollToSection($event, 'overview')"
-                  class="flex items-center p-2 text-gray-600 dark:text-gray-600 rounded-lg hover:text-blue-600 group"
+                  class="flex items-center p-2 text-gray-600 dark:text-slate-400 rounded-lg hover:text-blue-600 hover:dark:text-blue-500 group"
+                  [ngClass]="{'dark:text-slate-300': currentSection === 'overview'}"
                 >
                   <span class="ms-3">Overview</span>
                 </a>
               </li>
-              <li [ngClass]="{'bg-blue-100 dark:bg-blue-300 font-semibold': currentSection === 'topic1'}">
+              <li [ngClass]="{'bg-blue-300 dark:bg-blue-400 bg-opacity-40 dark:bg-opacity-20 font-semibold': currentSection === 'topic1'}">
                 <a
                   href="#topic1"
                   (click)="scrollToSection($event, 'topic1')"
-                  class="flex items-center p-2 text-gray-600 rounded-lg hover:text-blue-600 group"
+                  class="flex items-center p-2 text-gray-600 dark:text-slate-400 rounded-lg hover:text-blue-600 hover:dark:text-blue-500 group"
+                  [ngClass]="{'dark:text-slate-300': currentSection === 'topic1'}"
                 >
                   <span class="flex-1 ms-3 whitespace-wrap">Topic 1</span>
                 </a>
               </li>
-              <li [ngClass]="{'bg-blue-100 dark:bg-blue-300 font-semibold': currentSection === 'topic2'}">
+              <li [ngClass]="{'bg-blue-300 dark:bg-blue-400 bg-opacity-40 dark:bg-opacity-20 font-semibold': currentSection === 'topic2'}">
                 <a
                   href="#topic2"
                   (click)="scrollToSection($event, 'topic2')"
-                  class="flex items-center p-2 text-gray-600 rounded-lg hover:text-blue-600 group"
+                  class="flex items-center p-2 text-gray-600 dark:text-slate-400 rounded-lg hover:text-blue-600 hover:dark:text-blue-500 group"
+                  [ngClass]="{'dark:text-slate-300': currentSection === 'topic2'}"
                 >
                   <span class="flex-1 ms-3 whitespace-wrap">Topic 2</span>
                 </a>
               </li>
-              <li [ngClass]="{'bg-blue-100 dark:bg-blue-300 font-semibold': currentSection === 'topic3'}">
+              <li [ngClass]="{'bg-blue-300 dark:bg-blue-400 bg-opacity-40 dark:bg-opacity-20 font-semibold': currentSection === 'topic3'}">
                 <a
                   href="#topic3"
                   (click)="scrollToSection($event, 'topic3')"
-                  class="flex items-center p-2 text-gray-600 rounded-lg hover:text-blue-600 group"
+                  class="flex items-center p-2 text-gray-600 dark:text-slate-400 rounded-lg hover:text-blue-600 hover:dark:text-blue-500 group"
+                  [ngClass]="{'dark:text-slate-300': currentSection === 'topic3'}"
                 >
                   <span class="flex-1 ms-3 whitespace-wrap">Topic 3</span>
                 </a>
               </li>
-              <li [ngClass]="{'bg-blue-100 dark:bg-blue-300 font-semibold': currentSection === 'topic4'}">
+              <li [ngClass]="{'bg-blue-300 dark:bg-blue-400 bg-opacity-40 dark:bg-opacity-20 font-semibold': currentSection === 'topic4'}">
                 <a
                   href="#topic4"
                   (click)="scrollToSection($event, 'topic4')"
-                  class="flex items-center p-2 text-gray-600 rounded-lg hover:text-blue-600 group"
+                  class="flex items-center p-2 text-gray-600 dark:text-slate-400 rounded-lg hover:text-blue-600 hover:dark:text-blue-500 group"
+                  [ngClass]="{'dark:text-slate-300': currentSection === 'topic4'}"
                 >
                   <span class="flex-1 ms-3 whitespace-wrap">Topic 4</span>
                 </a>
               </li>
-              <li [ngClass]="{'bg-blue-100 dark:bg-blue-300 font-semibold': currentSection === 'topic5'}">
+              <li [ngClass]="{'bg-blue-300 dark:bg-blue-400 bg-opacity-40 dark:bg-opacity-20 font-semibold': currentSection === 'topic5'}">
                 <a
                   href="#topic5"
                   (click)="scrollToSection($event, 'topic5')"
-                  class="scroll-smooth flex items-center p-2 text-gray-600 rounded-lg hover:text-blue-600 group"
+                  class="flex items-center p-2 text-gray-600 dark:text-slate-400 rounded-lg hover:text-blue-600 hover:dark:text-blue-500 group"
+                  [ngClass]="{'dark:text-slate-300': currentSection === 'topic5'}"
                 >
                   <span class="flex-1 ms-3 whitespace-wrap">Topic 5</span>
                 </a>

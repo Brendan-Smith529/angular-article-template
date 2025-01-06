@@ -5,25 +5,33 @@ import { Injectable } from '@angular/core';
 })
 export class ThemeService {
   private currentTheme: string;
+  private themeType: string;
   private osDefault: string;
 
   constructor() {
     this.osDefault = this.getOsDefault();
 
     const theme = localStorage.getItem('theme');
-    this.currentTheme = theme
-      ? theme
-      : this.osDefault
+    if (theme)
+      this.currentTheme = this.themeType = theme;
 
-    if (!theme)
+    else {
+      this.themeType = 'os-default';
+      this.currentTheme = this.osDefault;
       this.setTheme('os-default');
+    }
   }
 
   getTheme(): string {
     return this.currentTheme;
   }
 
+  getThemeType(): string {
+    return this.themeType;
+  }
+
   setTheme(theme: string): void {
+    this.themeType = theme;
     this.currentTheme = theme === 'os-default' ? this.osDefault : theme;
     localStorage.setItem('theme', theme);
   }

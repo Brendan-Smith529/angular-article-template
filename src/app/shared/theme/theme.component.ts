@@ -36,6 +36,10 @@ export class ThemeComponent {
     return this.themeService.getTheme();
   }
 
+  getThemeType(): string {
+    return this.themeService.getThemeType();
+  }
+
   setTheme(type: string): void {
     this.themeService.setTheme(type);
   }
