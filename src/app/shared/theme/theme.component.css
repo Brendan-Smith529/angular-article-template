@@ -1,0 +1,29 @@
+.icon {
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  display: inline-block;
+  flex-shrink: 0;
+  height: 1rem;
+  width: 1rem;
+  background-color: currentColor;
+  vertical-align: middle;
+}
+
+.icon-os {
+  -webkit-mask-image: url(/assets/icons/theme-os-default.b14255eadab403fa2e8a.svg);
+  mask-image: url(/assets/icons/theme-os-default.b14255eadab403fa2e8a.svg);
+}
+
+.icon-light {
+  -webkit-mask-image: url(/assets/icons/theme-light.af1aa3887c0deadaaf2e.svg);
+  mask-image: url(/assets/icons/theme-light.af1aa3887c0deadaaf2e.svg);
+}
+
+.icon-dark {
+  -webkit-mask-image: url(/assets/icons/theme-dark.2204a73b9b7fbc5e0219.svg);
+  mask-image: url(/assets/icons/theme-dark.2204a73b9b7fbc5e0219.svg);
+}

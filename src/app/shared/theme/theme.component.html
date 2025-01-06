@@ -7,7 +7,10 @@
     aria-haspopup="menu"
   >
     <span class="mx-2">
-      <span [ngClass]="getTheme()"></span>
+      <span
+        class="icon"
+        [ngClass]="{'os-default': 'icon-os', 'light': 'icon-light', 'dark': 'icon-dark'}[getThemeType()]"
+      ></span>
       Theme
     </span>
   </button>
@@ -27,7 +30,13 @@
           (click)="setTheme(theme.value); toggleDisplay()"
           type="button"
         >
-          <span class="mx-4">{{ theme.label }}</span>
+          <span class="mx-4">
+            <span
+              class="icon"
+              [ngClass]="{'os-default': 'icon-os', 'light': 'icon-light', 'dark': 'icon-dark'}[theme.value]"
+            ></span>
+            {{ theme.label }}
+          </span>
         </button>
       </li>
     </ul>
