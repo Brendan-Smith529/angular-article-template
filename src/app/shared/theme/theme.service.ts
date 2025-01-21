@@ -12,14 +12,12 @@ export class ThemeService {
     this.osDefault = this.getOsDefault();
 
     const theme = localStorage.getItem('theme');
-    if (theme)
-      this.currentTheme = this.themeType = theme;
+    this.themeType = theme ? theme : 'os-default';
 
-    else {
-      this.themeType = 'os-default';
-      this.currentTheme = this.osDefault;
-      this.setTheme('os-default');
-    }
+    this.currentTheme = this.themeType === 'os-default'
+      ? this.osDefault
+      : this.themeType;
+    this.setTheme('os-default');
   }
 
   getTheme(): string {
@@ -46,6 +44,6 @@ export class ThemeService {
 
     return window.matchMedia('(prefers-color-scheme: dark)').matches
       ? 'dark'
-      :'light'
+      : 'light'
   }
 }
