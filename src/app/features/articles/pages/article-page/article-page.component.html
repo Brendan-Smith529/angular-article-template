@@ -1,0 +1,97 @@
+<div class="flex justify-center scroll-smooth dark:bg-zinc-900 dark:text-white">
+  <div id="article-sidebar-container">
+    <aside
+      id="article-sidebar"
+      class="fixed text-2xl top-48 left-0 ml-80 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+    >
+      <nav>
+        <div class="h-full px-3 pb-4 overflow-y-auto">
+          <section>
+            <header class="mb-4 text-3xl">
+              <h2>Articles</h2>
+            </header>
+
+            <ul class="space-y-5 border-l border-gray-300">
+              <li
+                *ngFor="let article of articles"
+              >
+                  <a
+                    href="/{{ article.Content.Headers[0] }}"
+                    class="flex items-center p-2 text-gray-600 dark:text-slate-400 rounded-lg hover:text-blue-600 hover:dark:text-blue-500 group"
+                  >
+                    {{ article.Content.Headers[0] }}
+                  </a>
+              </li>
+            </ul>
+          </section>
+        </div>
+      </nav>
+    </aside>
+  </div>
+
+  <main class="mr-24 max-w-3xl min-h-screen">
+    <article lang="en-us">
+      <header class="mt-20 mb-7" #section>
+        <h1 class="mb-4 text-left text-5xl font-semibold">{{ content.Headers[0] }}</h1>
+        <p class="text-lg leading-relaxed">
+          {{ content.Paragraphs[0] }}
+        </p>
+      </header>
+
+      <div *ngFor="let header of content.Headers | slice:1; let i = index">
+        <section [attr.aria-labelledby]="header" class="mb-7" #section>
+          <h2 [id]="header" class="mb-4 text-left text-4xl font-medium">
+            <a
+              href="#{{ header }}"
+              (click)="scrollToSection($event, header)"
+              class="hover:underline">
+              {{ header }}
+            </a>
+          </h2>
+
+          <div *ngIf="content.Paragraphs[i + 1]">
+            <p class="text-lg leading-relaxed">
+              {{ content.Paragraphs[i + 1] }}
+            </p>
+          </div>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <app-theme></app-theme>
+
+  <div id="sidebar-container">
+    <aside
+      id="default-sidebar"
+      class="fixed text-2xl top-48 right-30 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+      aria-label="Sidebar"
+    >
+      <nav>
+        <div class="h-full px-3 pb-4 overflow-y-auto">
+          <section>
+            <header class="mb-4 text-3xl">
+              <h2>Jump To</h2>
+            </header>
+
+            <ul class="space-y-5 border-l border-gray-300">
+                <li
+                  *ngFor="let header of content.Headers | slice:1; let i = index"
+                  [ngClass]="{'bg-blue-300 dark:bg-blue-400 bg-opacity-40 dark:bg-opacity-20 font-semibold': currentSection === header}"
+                >
+                  <a
+                    href="#{{ header }}"
+                    (click)="scrollToSection($event, header)"
+                    class="flex items-center p-2 text-gray-600 dark:text-slate-400 rounded-lg hover:text-blue-600 hover:dark:text-blue-500 group"
+                    [ngClass]="{'dark:text-slate-300': currentSection === header}"
+                  >
+                    <span class="ms-3">{{ header }}</span>
+                  </a>
+                </li>
+            </ul>
+          </section>
+        </div>
+      </nav>
+    </aside>
+  </div>
+</div>

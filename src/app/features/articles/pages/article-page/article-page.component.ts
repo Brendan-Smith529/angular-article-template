@@ -9,10 +9,10 @@ import {
   ViewChildren
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from './shared/shared.module';
-import { ThemeService } from './shared/theme/theme.service';
-import { ApiService } from './shared/api/api.service';
-import { Article, ArticleContent } from './shared/api/api';
+import { SharedModule } from '../../../../shared/shared.module';
+import { ThemeService } from '../../../../shared/theme/theme.service';
+import { ApiService } from '../../../../shared/api/api.service';
+import { Article, ArticleContent } from '../../../../shared/api/api';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +24,7 @@ import { Article, ArticleContent } from './shared/api/api';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements AfterViewInit, OnDestroy {
+export class ArticlePageComponent implements AfterViewInit, OnDestroy {
   title = 'personal-site';
   private _articles: Article[] = [];
   currentArticle: number = 0;
