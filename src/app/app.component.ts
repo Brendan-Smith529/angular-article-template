@@ -1,12 +1,6 @@
 import {
-  AfterViewInit,
   Component,
-  ElementRef,
   HostBinding,
-  NgZone,
-  OnDestroy,
-  QueryList,
-  ViewChildren
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from './shared/shared.module';
@@ -24,34 +18,19 @@ import { Article, ArticleContent } from './shared/api/api';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements AfterViewInit, OnDestroy {
+export class AppComponent {
   title = 'personal-site';
   private _articles: Article[] = [];
-  currentArticle: number = 0;
-  content: ArticleContent = { Headers: [], Paragraphs: [] };
+  articleDescriptors: {Title: string, Summary: string}[] = [];
 
   // Theme changing
   constructor(
-    private ngZone: NgZone,
     private themeService: ThemeService,
     private apiService: ApiService,
   ) {}
 
   @HostBinding('class.dark') get mode() {
     return this.themeService.getTheme() === 'dark';
-  }
-
-  // Section manipulation
-  currentSection: string = ''
-  @ViewChildren('section') sections!: QueryList<ElementRef>
-  private observer!: IntersectionObserver
-
-  scrollToSection(e: MouseEvent, id: string): void {
-    const section = document.getElementById(id);
-    e.preventDefault();
-
-    if (section)
-      section.scrollIntoView({ behavior: 'smooth' });
   }
 
   get articles() {
@@ -61,43 +40,75 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   set articles(items: Article[]) {
     this._articles = items.sort(item => item.ArticleNumber);
 
-    this.content = this._articles[this.currentArticle].Content;
+    this.articleDescriptors = this.articles.map(article =>({
+      Title: article.Content.Headers[0],
+      Summary: article.Content.Paragraphs[0]
+    }));
   }
 
   ngOnInit(): void {
-    this.apiService.getContent().subscribe(
-      data => this.articles = data.Items
-    );
-  }
+    // this.apiService.getContent().subscribe(
+    //   data => this.articles = data.Items
+    // );
 
-  ngAfterViewInit(): void {
-    const observerOptions = {
-			root: null,
-			rootMargin: "0px",
-			threshold: 0.4,
-		};
+    const items = [
+      {
+        ArticleNumber: 0,
+        Content: {
+          Headers: [
+            "First article"
+          ],
+          Paragraphs: [
+            "This is a paragraph that will describe the first article. It will be viewed as brilliant and magnanimous. It will be passed down for generations to come, with all kin praising this piece of text. I will be seen as the next Shakespeare. gggggggggggggggggggggggggggggggggg gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggghhhhhhhhhhhhhh hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj jjjjjjj"
+          ]
+        }
+      },
+      {
+        ArticleNumber: 1,
+        Content: {
+          Headers: [
+            "Second article"
+          ],
+          Paragraphs: [
+            "This is a paragraph that will describe the second article. It will be viewed as brilliant and magnanimous. It will be passed down for generations to come, with all kin praising this piece of text. I will be seen as the next Shakespeare."
+          ]
+        }
+      },
+      {
+        ArticleNumber: 2,
+        Content: {
+          Headers: [
+            "Third article"
+          ],
+          Paragraphs: [
+            "This is a paragraph that will describe the third article. It will be viewed as brilliant and magnanimous. It will be passed down for generations to come, with all kin praising this piece of text. I will be seen as the next Shakespeare."
+          ]
+        }
+      },
+      {
+        ArticleNumber: 3,
+        Content: {
+          Headers: [
+            "Fourth article"
+          ],
+          Paragraphs: [
+            "This is a paragraph that will describe the fourth article. It will be viewed as brilliant and magnanimous. It will be passed down for generations to come, with all kin praising this piece of text. I will be seen as the next Shakespeare."
+          ]
+        }
+      },
+      {
+        ArticleNumber: 4,
+        Content: {
+          Headers: [
+            "Fifth article"
+          ],
+          Paragraphs: [
+            "This is a paragraph that will describe the fifth and final article. It will be viewed as brilliant and magnanimous. It will be passed down for generations to come, with all kin praising this piece of text. I will be seen as the next Shakespeare."
+          ]
+        }
+      },
+    ]
 
-		this.observer = new IntersectionObserver((entries) => {
-      this.ngZone.run(() => {
-        const intersectingEntry = entries.find(entry => entry.isIntersecting);
-
-        if (!intersectingEntry)
-          return;
-
-        this.currentSection = intersectingEntry
-          .target
-          .getAttribute("aria-labelledby") as string
-      })
-		}, observerOptions);
-
-    this.sections.changes.subscribe(() => {
-      for (const section of this.sections)
-        this.observer.observe(section.nativeElement);
-    })
-  }
-
-  ngOnDestroy(): void {
-    for (const section of this.sections)
-      this.observer.unobserve(section.nativeElement);
+    this.articles = items.sort(item => item.ArticleNumber);
   }
 }

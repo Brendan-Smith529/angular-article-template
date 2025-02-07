@@ -1,32 +1,31 @@
-<div class="flex justify-center scroll-smooth dark:bg-zinc-900 dark:text-white">
-  <main class="mr-24 max-w-3xl min-h-screen">
-    <article lang="en-us">
-      <header class="mt-20 mb-7" #section>
-        <h1 class="mb-4 text-left text-5xl font-semibold">{{ content.Headers[0] }}</h1>
-        <p class="text-lg leading-relaxed">
-          {{ content.Paragraphs[0] }}
+<div class="flex min-h-screen justify-center scroll-smooth dark:bg-neutral-900 dark:text-white">
+  <main class="w-full ml-64 mr-96">
+    <header class="mt-16">
+      <h1 class="mb-4 text-left text-4xl font-semibold">Available Articles</h1>
+    </header>
+
+    <hr>
+
+    <div class="mt-16 grid grid-cols-2 gap-8">
+      <a
+        *ngFor="let article of articleDescriptors"
+        href="#{{ article.Title.replaceAll(' ', '-') }}"
+        class="
+          text-center text-2xl font-small overflow-hidden
+          box-content border rounded-md border-gray-400 p-4 max-h-48
+          hover:shadow:md hover:dark:shadow-white hover:dark:shadow-sm hover:underline
+        "
+      >
+        <h2
+          class="break-normal mb-3 text-left"
+        >
+          {{ article.Title }}
+        </h2>
+        <p class="font-normal text-left text-base">
+          {{ article.Summary }}
         </p>
-      </header>
-
-      <div *ngFor="let header of content.Headers | slice:1; let i = index">
-        <section [attr.aria-labelledby]="header" class="mb-7" #section>
-          <h2 [id]="header" class="mb-4 text-left text-4xl font-medium">
-            <a
-              href="#{{ header }}"
-              (click)="scrollToSection($event, header)"
-              class="hover:underline">
-              {{ header }}
-            </a>
-          </h2>
-
-          <div *ngIf="content.Paragraphs[i + 1]">
-            <p class="text-lg leading-relaxed">
-              {{ content.Paragraphs[i + 1] }}
-            </p>
-          </div>
-        </section>
-      </div>
-    </article>
+      </a>
+    </div>
   </main>
 
   <app-theme></app-theme>
