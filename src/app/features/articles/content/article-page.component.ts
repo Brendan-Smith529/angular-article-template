@@ -41,7 +41,7 @@ export class ArticlePageComponent implements AfterViewInit, OnDestroy {
     const section = document.getElementById(id);
     if (!section) return;
 
-    section.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    section.scrollIntoView({ behavior: 'smooth' });
   }
 
   ngOnInit(): void {
@@ -60,7 +60,9 @@ export class ArticlePageComponent implements AfterViewInit, OnDestroy {
     });
 
     this.route.fragment.subscribe((frag) => this.scrollToSection(frag!));
-    window.addEventListener('popstate', () => this.scrollToSection(window.location.hash.substring(1)));
+    window.addEventListener('popstate', () =>
+      this.scrollToSection(decodeURIComponent(window.location.hash.substring(1)))
+    );
   }
 
   ngAfterViewInit(): void {

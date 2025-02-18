@@ -10,6 +10,7 @@ import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 
 const scrollConfig: InMemoryScrollingOptions = {
+  anchorScrolling: 'disabled',
   scrollPositionRestoration: 'disabled'
 };
 
