@@ -39,12 +39,21 @@ export class ArticlePageComponent implements AfterViewInit, OnDestroy {
 
   scrollToSection(id: string): void {
     const section = document.getElementById(id);
-    if (!section) return;
+    if (!section) {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+      return;
+    }
 
     section.scrollIntoView({ behavior: 'smooth' });
   }
 
   ngOnInit(): void {
+    history.scrollRestoration = 'manual';
+
     // Get all article names
     const [numArticles, firstArticle] = localStorage.getItem('articles-info')!.split(" ").map(Number);
     this.articleInfo = Array.from({ length: numArticles }, (_, index) => {

@@ -1,10 +1,10 @@
-<div id="article-sidebar-container">
+<div class="flex gap-24">
   <aside
-    id="article-sidebar"
-    class="fixed text-2xl top-24 left-12 w-64 h-[85vh]"
+    class="sticky text-2xl top-24 max-w-64 h-[85vh] hidden lg:block"
+    aria-label="article-sidebar"
   >
     <nav class="h-full">
-      <div class="h-full px-3 pb-4 overflow-y-auto">
+      <div class="h-full pb-4 overflow-y-auto">
         <section>
           <header class="mb-4 text-3xl">
             <h2>Articles</h2>
@@ -28,43 +28,40 @@
       </div>
     </nav>
   </aside>
-</div>
 
-<main class="max-w-3xl sm:max-w-2xl min-h-screen break-words">
-  <article lang="en-us">
-    <header class="mt-20 mb-7" #section>
-      <h1 class="mb-4 text-left text-5xl font-semibold">{{ content.Headers[0] }}</h1>
-      <p class="text-lg leading-relaxed">
-        {{ content.Paragraphs[0] }}
-      </p>
-    </header>
+  <main class="2xl:max-w-3xl sm:max-w-2xl min-h-screen break-words">
+    <article lang="en-us">
+      <header class="mt-20 mb-7" #section>
+        <h1 class="mb-4 text-left text-5xl font-semibold">{{ content.Headers[0] }}</h1>
+        <p class="text-lg leading-relaxed">
+          {{ content.Paragraphs[0] }}
+        </p>
+      </header>
 
-    <div *ngFor="let header of content.Headers | slice:1; let i = index">
-      <section [attr.aria-labelledby]="header" class="mb-7" #section>
-        <h2 [id]="header" class="mb-4 text-left text-4xl font-medium">
-          <a
-            [routerLink]="['./']"
-            [fragment]="header"
-            class="hover:underline"
-          >
-            {{ header }}
-          </a>
-        </h2>
+      <div *ngFor="let header of content.Headers | slice:1; let i = index">
+        <section [attr.aria-labelledby]="header" class="mb-7" #section>
+          <h2 [id]="header" class="mb-4 text-left text-4xl font-medium">
+            <a
+              [routerLink]="['./']"
+              [fragment]="header"
+              class="hover:underline"
+            >
+              {{ header }}
+            </a>
+          </h2>
 
-        <div *ngIf="content.Paragraphs[i + 1]">
-          <p class="text-lg leading-relaxed">
-            {{ content.Paragraphs[i + 1] }}
-          </p>
-        </div>
-      </section>
-    </div>
-  </article>
-</main>
+          <div *ngIf="content.Paragraphs[i + 1]">
+            <p class="text-lg leading-relaxed">
+              {{ content.Paragraphs[i + 1] }}
+            </p>
+          </div>
+        </section>
+      </div>
+    </article>
+  </main>
 
-<div id="header-sidebar-container">
   <aside
-    id="header-sidebar"
-    class="fixed text-2xl w-64 top-24 right-32 h-[75vh]"
+    class="sticky text-2xl max-w-64 top-24 h-[60vh] hidden xl:block"
     aria-label="Header Sidebar"
   >
     <nav class="h-full">
@@ -78,6 +75,7 @@
               <li
                 *ngFor="let header of content.Headers | slice:1; let i = index"
                 [ngClass]="{'bg-blue-300 dark:bg-blue-400 bg-opacity-40 dark:bg-opacity-20 font-semibold': currentSection === header}"
+                class="rounded-r"
               >
                 <a
                   [routerLink]="['./']"
@@ -85,7 +83,7 @@
                   class="flex items-center p-2 text-gray-600 dark:text-slate-400 rounded-lg hover:text-blue-600 hover:dark:text-blue-500 group"
                   [ngClass]="{'dark:text-slate-300': currentSection === header}"
                 >
-                  <span class="ms-3">{{ header }}</span>
+                  <span class="ms-3 pr-6">{{ header }}</span>
                 </a>
               </li>
           </ul>
