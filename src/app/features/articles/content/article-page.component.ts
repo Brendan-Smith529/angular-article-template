@@ -51,24 +51,29 @@ export class ArticlePageComponent implements AfterViewInit, OnDestroy {
     section.scrollIntoView({ behavior: 'smooth' });
   }
 
-  ngOnInit(): void {
-    history.scrollRestoration = 'manual';
-
-    // Get all article names
+  getArticleInfo(): void {
+    // Get and set all article names
     const [numArticles, firstArticle] = localStorage.getItem('articles-info')!.split(" ").map(Number);
     this.articleInfo = Array.from({ length: numArticles }, (_, index) => {
       const article = JSON.parse(localStorage.getItem(`article-${index + firstArticle}`)!);
       return { Title: article.Headers[0], Num: index + firstArticle }
     });
 
-    // Get article content
+    // Get and set article content
     this.route.paramMap.subscribe(params => {
       this.articleNum = Number(params.get('id'));
       const stringContent = localStorage.getItem(`article-${this.articleNum}`);
       this.content = JSON.parse(stringContent!);
     });
+  }
 
+  ngOnInit(): void {
+    this.getArticleInfo();
+
+    // Handle url changes and popstates
     this.route.fragment.subscribe((frag) => this.scrollToSection(frag!));
+
+    history.scrollRestoration = 'manual';
     window.addEventListener('popstate', () =>
       this.scrollToSection(decodeURIComponent(window.location.hash.substring(1)))
     );
@@ -82,7 +87,7 @@ export class ArticlePageComponent implements AfterViewInit, OnDestroy {
 		};
 
 		this.observer = new IntersectionObserver((entries) => {
-      this.ngZone.run(() => {
+      this.ngZone.runOutsideAngular(() => {
         const intersectingEntry = entries.find(entry => entry.isIntersecting);
 
         if (!intersectingEntry)
@@ -94,6 +99,7 @@ export class ArticlePageComponent implements AfterViewInit, OnDestroy {
       })
 		}, observerOptions);
 
+    // Setup for section observing
     for (const section of this.sections)
       this.observer.observe(section.nativeElement);
 
@@ -101,10 +107,10 @@ export class ArticlePageComponent implements AfterViewInit, OnDestroy {
       for (const section of this.sections)
         this.observer.observe(section.nativeElement);
     });
+
   }
 
   ngOnDestroy(): void {
-    for (const section of this.sections)
-      this.observer.unobserve(section.nativeElement);
+    this.observer.disconnect();
   }
 }

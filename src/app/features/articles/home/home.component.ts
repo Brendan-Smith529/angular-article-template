@@ -42,7 +42,7 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
-    // To use an api to retrieve
+    // Using API
     // this.apiService.getContent().subscribe(
     //   data => this.articles = data.Items
     // );
