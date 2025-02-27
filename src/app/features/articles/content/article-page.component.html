@@ -39,8 +39,12 @@
       </header>
 
       <div *ngFor="let header of content.Headers | slice:1; let i = index">
-        <section [attr.aria-labelledby]="header" class="mb-7" #section>
-          <h2 [id]="header" class="mb-4 text-left text-4xl font-medium">
+        <section [id]="header" class="mb-7">
+          <h2
+            #header
+            [attr.aria-labelledby]="header"
+            class="mb-4 text-left text-4xl font-medium"
+          >
             <a
               [routerLink]="['./']"
               [fragment]="header"
@@ -75,7 +79,7 @@
           <ul class="space-y-5 border-l border-gray-300">
               <li
                 *ngFor="let header of content.Headers | slice:1; let i = index"
-                [ngClass]="{'bg-blue-300 dark:bg-blue-400 bg-opacity-40 dark:bg-opacity-20 font-semibold': currentSection === header}"
+                [ngClass]="{'bg-blue-300 dark:bg-blue-400 bg-opacity-40 dark:bg-opacity-20 font-semibold': currentHeader === header}"
                 class="rounded-r"
               >
                 <a
@@ -83,7 +87,7 @@
                   [fragment]="header"
                   (click)="scrollToSection(header)"
                   class="flex items-center p-2 text-gray-600 dark:text-slate-400 rounded-lg hover:text-blue-600 hover:dark:text-blue-500 group"
-                  [ngClass]="{'dark:text-slate-300': currentSection === header}"
+                  [ngClass]="{'dark:text-slate-300': currentHeader === header}"
                 >
                   <span class="ms-3 pr-6">{{ header }}</span>
                 </a>

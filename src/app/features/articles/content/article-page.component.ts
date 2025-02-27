@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  HostListener,
   NgZone,
   OnDestroy,
   QueryList,
@@ -33,9 +34,10 @@ export class ArticlePageComponent implements AfterViewInit, OnDestroy {
   ) {}
 
   // Section manipulation
-  currentSection: string = ''
-  @ViewChildren('section') sections!: QueryList<ElementRef>
-  private observer!: IntersectionObserver
+  currentHeader: string = ''
+  @ViewChildren('header') headers!: QueryList<ElementRef<HTMLHeadingElement>>;
+  reversedHeaders: ElementRef<HTMLHeadingElement>[] = [];
+  private observer!: IntersectionObserver;
 
   scrollToSection(id: string): void {
     const section = document.getElementById(id);
@@ -80,34 +82,23 @@ export class ArticlePageComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    const observerOptions = {
-			root: null,
-			rootMargin: "0px",
-			threshold: 0.3,
-		};
+    this.reversedHeaders = this.headers.toArray().reverse();
+  }
 
-		this.observer = new IntersectionObserver((entries) => {
-      this.ngZone.runOutsideAngular(() => {
-        const intersectingEntry = entries.find(entry => entry.isIntersecting);
-
-        if (!intersectingEntry)
-          return;
-
-        this.currentSection = intersectingEntry
-          .target
-          .getAttribute("aria-labelledby") as string
-      })
-		}, observerOptions);
-
-    // Setup for section observing
-    for (const section of this.sections)
-      this.observer.observe(section.nativeElement);
-
-    this.sections.changes.subscribe(() => {
-      for (const section of this.sections)
-        this.observer.observe(section.nativeElement);
+  @HostListener('window:scroll', ['$event'])
+  onScroll(): void {
+    const headerEl = this.reversedHeaders.find(el => {
+      const rect = el.nativeElement.getBoundingClientRect();
+      return rect.top <= 0;
     });
 
+    const newHeader = headerEl
+      ? headerEl.nativeElement.getAttribute('aria-labelledby')!
+      : ''
+
+    if (this.currentHeader === newHeader) return;
+
+    this.currentHeader = newHeader;
   }
 
   ngOnDestroy(): void {
