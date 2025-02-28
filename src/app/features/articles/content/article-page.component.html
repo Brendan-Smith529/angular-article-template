@@ -1,16 +1,16 @@
 <div class="flex gap-24">
   <aside
-    class="sticky text-2xl top-24 max-w-64 max-h-[85vh] hidden lg:block"
+    class="sticky text-2xl top-24 max-w-64 max-h-[80vh] hidden lg:block"
     aria-label="article-sidebar"
   >
     <nav class="h-full">
       <div class="h-full pb-4">
-        <section>
+        <section class="h-full flex flex-col">
           <header class="mb-4 text-3xl">
             <h2>Articles</h2>
           </header>
 
-          <ul class="h-full space-y-5 border-l border-gray-300 overflow-y-auto">
+          <ul class="space-y-5 border-l border-gray-300 overflow-y-auto">
             <li
               *ngFor="let article of articleInfo"
               [ngClass]="{'bg-blue-300 dark:bg-blue-400 bg-opacity-40 dark:bg-opacity-20 font-semibold': articleNum === article.Num}"
@@ -71,12 +71,12 @@
   >
     <nav class="h-full">
       <div class="h-full px-3 pb-4">
-        <section>
+        <section class="h-full flex flex-col">
           <header class="mb-4 text-3xl">
             <h2>Jump To</h2>
           </header>
 
-          <ul #headerContainer class="h-full space-y-5 border-l border-gray-300 overflow-y-auto">
+          <ul #headerContainer class="space-y-5 border-l border-gray-300 overflow-y-auto">
               <li
                 *ngFor="let header of content.Headers | slice:1; let i = index"
                 [ngClass]="{'bg-blue-300 dark:bg-blue-400 bg-opacity-40 dark:bg-opacity-20 font-semibold': currentHeader === header}"
