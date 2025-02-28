@@ -99,6 +99,10 @@ export class ArticlePageComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.reversedHeaders = this.headers.toArray().reverse();
+
+    this.headers.changes.subscribe(() =>
+      this.reversedHeaders = this.headers.toArray().reverse()
+    );
   }
 
   @HostListener('window:scroll', ['$event'])
