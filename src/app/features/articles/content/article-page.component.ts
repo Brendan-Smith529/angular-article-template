@@ -3,9 +3,8 @@ import {
   Component,
   ElementRef,
   HostListener,
-  NgZone,
-  OnDestroy,
   QueryList,
+  ViewChild,
   ViewChildren
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -23,13 +22,12 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
   templateUrl: './article-page.component.html',
   styleUrl: './article-page.component.css'
 })
-export class ArticlePageComponent implements AfterViewInit, OnDestroy {
+export class ArticlePageComponent implements AfterViewInit {
   articleInfo: { Title: string, Num: number }[] = [];
   articleNum: number = 0;
   content: ArticleContent = { Headers: [], Paragraphs: [] };
 
   constructor(
-    private ngZone: NgZone,
     private route: ActivatedRoute,
   ) {}
 
@@ -37,7 +35,9 @@ export class ArticlePageComponent implements AfterViewInit, OnDestroy {
   currentHeader: string = ''
   @ViewChildren('header') headers!: QueryList<ElementRef<HTMLHeadingElement>>;
   reversedHeaders: ElementRef<HTMLHeadingElement>[] = [];
-  private observer!: IntersectionObserver;
+
+  // Sidebar scrolling
+  @ViewChild('headerContainer') headerContainer!: ElementRef<HTMLUListElement>;
 
   scrollToSection(id: string): void {
     const section = document.getElementById(id);
@@ -51,6 +51,22 @@ export class ArticlePageComponent implements AfterViewInit, OnDestroy {
     }
 
     section.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  scrollToSidebarHeader(id: string): void {
+    const container = this.headerContainer.nativeElement;
+    const header = container.querySelector(`#${id}`);
+
+    if (!header) return;
+
+    const headerRect = header.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+
+    const distFromTop = headerRect.top - containerRect.top;
+    const heightDiff = containerRect.height / 2 - headerRect.height / 2;
+    const offset = distFromTop - heightDiff;
+
+    container.scrollBy({ top: offset, behavior: 'smooth' });
   }
 
   getArticleInfo(): void {
@@ -99,9 +115,8 @@ export class ArticlePageComponent implements AfterViewInit, OnDestroy {
     if (this.currentHeader === newHeader) return;
 
     this.currentHeader = newHeader;
-  }
 
-  ngOnDestroy(): void {
-    this.observer.disconnect();
+    if (headerEl)
+      this.scrollToSidebarHeader(CSS.escape(`sidebar-${newHeader}`));
   }
 }
