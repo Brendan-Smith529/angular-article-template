@@ -44,7 +44,6 @@ export class ArticlePageComponent implements AfterViewInit {
     if (!section) {
       window.scrollTo({
         top: 0,
-        left: 0,
         behavior: 'smooth'
       });
       return;
@@ -109,7 +108,7 @@ export class ArticlePageComponent implements AfterViewInit {
   onScroll(): void {
     const headerEl = this.reversedHeaders.find(el => {
       const rect = el.nativeElement.getBoundingClientRect();
-      return rect.top <= 0;
+      return rect.top <= 25; // Buffer room
     });
 
     const newHeader = headerEl
@@ -117,7 +116,6 @@ export class ArticlePageComponent implements AfterViewInit {
       : ''
 
     if (this.currentHeader === newHeader) return;
-
     this.currentHeader = newHeader;
 
     if (headerEl)

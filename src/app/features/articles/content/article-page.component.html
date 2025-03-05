@@ -31,7 +31,7 @@
 
   <main class="2xl:max-w-3xl sm:max-w-2xl min-h-screen break-words">
     <article lang="en-us">
-      <header class="mt-20 mb-7" #section>
+      <header class="mt-20" #section>
         <h1 class="mb-4 text-left text-5xl font-semibold">{{ content.Headers[0] }}</h1>
         <p class="text-lg leading-relaxed">
           {{ content.Paragraphs[0] }}
@@ -39,7 +39,7 @@
       </header>
 
       <div *ngFor="let header of content.Headers | slice:1; let i = index">
-        <section [id]="header" class="mb-7">
+        <section [id]="header" class="mt-5 pt-2">
           <h2
             #header
             [attr.aria-labelledby]="header"
