@@ -1,0 +1,36 @@
+<main class="ml-64 mr-96">
+  <header class="mt-10">
+    <h1 class="mb-4 text-left text-4xl font-semibold">Available Articles</h1>
+  </header>
+
+  <hr>
+
+  <div
+    class="mt-16 grid grid-cols-2 gap-8"
+  >
+    <a
+      *ngFor="let article of articleDescriptors"
+      [routerLink]="['/article', article.Number]"
+      class="
+        text-center text-2xl font-small overflow-hidden group
+        box-content border rounded-md border-slate-400 dark:border-gray-400 p-4 h-40
+        hover:shadow-md hover:dark:shadow-gray-500 hover:dark:shadow-md
+      "
+    >
+    <div
+        class="
+          h-full bg-gradient-to-b bg-clip-text via-[85%] to-[100%]
+          from-neutral-900 via-neutral-900  to-white
+          dark:from-white dark:via-white dark:to-neutral-900
+        "
+      >
+        <h2 class="break-normal mb-3 group-hover:underline">
+          {{ article.Title }}
+        </h2>
+        <p class="font-normal text-left text-base text-transparent">
+          {{ article.Summary }}
+        </p>
+      </div>
+    </a>
+  </div>
+</main>

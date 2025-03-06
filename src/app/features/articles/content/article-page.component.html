@@ -1,0 +1,101 @@
+<div class="flex gap-24">
+  <aside
+    class="sticky text-2xl top-24 max-w-64 max-h-[80vh] hidden lg:block"
+    aria-label="article-sidebar"
+  >
+    <nav class="h-full">
+      <div class="h-full pb-4">
+        <section class="h-full flex flex-col">
+          <header class="mb-4 text-3xl">
+            <h2>Articles</h2>
+          </header>
+
+          <ul class="space-y-5 border-l border-gray-300 overflow-y-auto">
+            <li
+              *ngFor="let article of articleInfo"
+              [ngClass]="{'bg-blue-300 dark:bg-blue-400 bg-opacity-40 dark:bg-opacity-20 font-semibold': articleNum === article.Num}"
+              class="pr-4 rounded-r"
+            >
+                <a
+                  [routerLink]="['/article', article.Num]"
+                  class="flex items-center p-2 text-gray-600 dark:text-slate-300 rounded-lg hover:underline hover:dark:underline"
+                >
+                  {{ article.Title }}
+                </a>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </nav>
+  </aside>
+
+  <main class="2xl:max-w-3xl sm:max-w-2xl min-h-screen break-words pb-10">
+    <article lang="en-us">
+      <header class="mt-20" #section>
+        <h1 class="mb-4 text-left text-5xl font-semibold">{{ content.Headers[0] }}</h1>
+        <p class="text-lg leading-relaxed">
+          {{ content.Paragraphs[0] }}
+        </p>
+      </header>
+
+      <div *ngFor="let header of content.Headers | slice:1; let i = index">
+        <section [id]="header" class="mt-5 pt-2">
+          <h2
+            #header
+            [attr.aria-labelledby]="header"
+            class="mb-4 text-left text-4xl font-medium"
+          >
+            <a
+              [routerLink]="['./']"
+              [fragment]="header"
+              (click)="scrollToSection(header)"
+              class="hover:underline"
+            >
+              {{ header }}
+            </a>
+          </h2>
+
+          <div *ngIf="content.Paragraphs[i + 1]">
+            <p class="text-lg leading-relaxed">
+              {{ content.Paragraphs[i + 1] }}
+            </p>
+          </div>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <aside
+    class="sticky text-2xl max-w-64 top-24 max-h-[60vh] hidden xl:block"
+    aria-label="Header Sidebar"
+  >
+    <nav class="h-full">
+      <div class="h-full px-3 pb-4">
+        <section class="h-full flex flex-col">
+          <header class="mb-4 text-3xl">
+            <h2>Jump To</h2>
+          </header>
+
+          <ul #headerContainer class="space-y-5 border-l border-gray-300 overflow-y-auto">
+              <li
+                *ngFor="let header of content.Headers | slice:1; let i = index"
+                [ngClass]="{'bg-blue-300 dark:bg-blue-400 bg-opacity-40 dark:bg-opacity-20 font-semibold': currentHeader === header}"
+                class="rounded-r"
+                id="sidebar-{{ header }}"
+              >
+                <a
+                  [routerLink]="['./']"
+                  [fragment]="header"
+                  (click)="scrollToSection(header)"
+                  class="flex items-center p-2 text-gray-600 dark:text-slate-400 rounded-lg hover:text-blue-600 hover:dark:text-blue-500 group"
+                  [ngClass]="{'dark:text-slate-300': currentHeader === header}"
+                >
+                  <span class="ms-3 pr-6">{{ header }}</span>
+                </a>
+              </li>
+          </ul>
+        </section>
+      </div>
+    </nav>
+  </aside>
+</div>

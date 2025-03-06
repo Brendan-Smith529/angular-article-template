@@ -1,4 +1,4 @@
-<div class="fixed top-5 right-30 text-xl h-screen transition-transform -translate-x-full sm:translate-x-0" #menuContainer>
+<div class="fixed top-10 hidden lg:block lg:max-xl:left-24 xl:right-24 text-xl transition-transform">
   <button
     (click)="toggleDisplay()"
     class="hover:bg-gray-300 dark:hover:bg-gray-600 rounded border border-blue-500 border-opacity-0"
@@ -16,8 +16,9 @@
   </button>
 
   <div
-    class="block border rounded bg-gray-50 border-gray-200 dark:bg-zinc-800 dark:border-gray-500 shadow-md dark:shadow-white dark:shadow-sm"
+    class="fixed block border rounded bg-gray-50 border-gray-200 dark:bg-zinc-800 dark:border-gray-500 shadow-md dark:shadow-white dark:shadow-sm"
     *ngIf="showThemeOpts"
+    #menuContainer
   >
     <ul class="my-2 mx-2">
       <li
