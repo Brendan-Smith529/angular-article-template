@@ -1,60 +1,83 @@
-# PersonalSite
-A site that describes my projects and who I am
+# Article Template for Angular
+This project is intended to provide a base for any site that may require manuals or other types of documentation.
+It allows users a clean, intuitive, and feature rich way to traverse various articles/manuals without becoming frustrated or wishing for a better UI.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.3.
+Try out a demo [Here](https://angular-manual-template.vercel.app/)!
 
-## Development server
+## Local Setup
 
-To start a local development server, run:
+#### Clone the repository:
+
+```bash
+git clone https://github.com/Brendan-Smith529/angular-article-template.git
+```
+
+or
+
+```bash
+git clone git@github.com:Brendan-Smith529/angular-article-template.git
+```
+
+#### Download the necessary packages:
+
+```bash
+npm install
+```
+
+#### Run the server:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Once the server is running, open your browser and navigate to
+`http://localhost:4200/` or click [Here](http://localhost:4200/).
 
-## Code scaffolding
+## Features
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Theming
 
-```bash
-ng generate component component-name
-```
+To make first time viewers more comfortable, there is custom theme selection which
+defaults to the browser's current theme. For example, if the browser is
+in dark mode then the page will load in dark mode; the same applies for light mode.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Manual theming is another option and is made easy by a selector at the top of the
+screen labeled 'Theme'. Clicking opens a drop-down menu which makes it clear which
+option is currently selected along with providing icons and clear labels as to
+the options. The currently, selected option has a different background color from
+the other options and a shadow more extra emphasis.
 
-```bash
-ng generate --help
-```
+### Intuitive Home Page
 
-## Building
+The home page provides an easy to understand list of available articles.
+Each article has a preview (designated by the article contents) where users
+are able to see what the article is about.
 
-To build the project run:
+Article selection is designed to be simple. Underlining the article title
+and adding a strong shadow to the box ensures that there is no confusion as
+to which box could be selected, while also creating a more pleasant experience.
 
-```bash
-ng build
-```
+### Article's Header Sidebar
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+There is a sidebar dedicated to all of the headers present in the article.
 
-## Running unit tests
+The section currently being viewed has its header highlighted on sidebar.
+If there are many headers, the highlighted header will be
+scrolled into view, assuming it is not there already.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Clicking on one of the headers smoothly scrolls the selected article section to
+the top of the viewport.
 
-```bash
-ng test
-```
+### Article Sidebar
 
-## Running end-to-end tests
+To provide a better experience, there is a sidebar dedicated all of the available
+articles. Clicking on these articles will change the user to whichever article was
+selected.
 
-For end-to-end (e2e) testing, run:
+### Article Content
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+In the content of the articles themselves, the headers are able to be clicked and
+behave the same as clicking a header on the sidebar: scrolling the header to the top
+of the viewport. There is also smooth scrolling to the section on popstates, 
+using a back/forward arrow of the browser, to make a better and more obvious
+transition.
