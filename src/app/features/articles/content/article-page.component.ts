@@ -104,9 +104,13 @@ export class ArticlePageComponent implements AfterViewInit {
     );
   }
 
-  @HostListener('window:scroll', ['$event'])
+  @HostListener('window:scroll', [])
   onScroll(): void {
     const headerEl = this.reversedHeaders.find(el => {
+      // If scroll is at bottom, return last header
+      if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight)
+        return true;
+
       const rect = el.nativeElement.getBoundingClientRect();
       return rect.top <= 25; // Buffer room
     });

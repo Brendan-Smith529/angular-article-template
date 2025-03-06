@@ -43,11 +43,11 @@ export class HomeComponent {
 
   ngOnInit(): void {
     // Using API
-    // this.apiService.getContent().subscribe(
-    //   data => this.articles = data.Items
-    // );
+    this.apiService.getContent().subscribe(
+      data => this.articles = data.Items
+    );
 
     // Using static pages
-    this.articles = items.sort(item => item.ArticleNumber);
+    // this.articles = items.sort(item => item.ArticleNumber);
   }
 }
