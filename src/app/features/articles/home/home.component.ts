@@ -35,8 +35,6 @@ export class HomeComponent {
       Summary: article.Content.Paragraphs[0]
     }));
 
-    console.log(this.articles);
-
     for (const article of this.articles)
       localStorage.setItem(`article-${article.ArticleNumber}`, JSON.stringify(article.Content));
 
