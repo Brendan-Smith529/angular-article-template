@@ -27,13 +27,15 @@ export class HomeComponent {
   }
 
   set articles(items: Article[]) {
-    this._articles = items.sort(item => item.ArticleNumber);
+    this._articles = items.sort((a, b) => a.ArticleNumber - b.ArticleNumber);
 
     this.articleDescriptors = this.articles.map(article => ({
       Number: article.ArticleNumber,
       Title: article.Content.Headers[0],
       Summary: article.Content.Paragraphs[0]
     }));
+
+    console.log(this.articles);
 
     for (const article of this.articles)
       localStorage.setItem(`article-${article.ArticleNumber}`, JSON.stringify(article.Content));
